@@ -1,0 +1,94 @@
+<script type="text/ng-template" id="/posts.html">
+  <div class="page-header">
+    <h3>
+      <a ng-show="post.link" href="{{post.link}}">
+        {{post.title}}
+      </a>
+      <span ng-hide="post.link">
+        {{post.title}}
+      </span>
+    </h3>
+
+  </div>
+
+  <div>
+    <form ng-submit="addPost()"
+          style="margin-top:30px;">
+      <h3>Add a new Post</h3>
+
+      <div class="form-group">
+        <input type="text"
+               class="form-control"
+               placeholder="Title"
+               ng-model="title"></input>
+      </div>
+
+      <div class="form-group">
+        <input type="text"
+               class="form-control"
+               placeholder="Link"
+               ng-model="link"></input>
+      </div>
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+
+    <hr />
+  </div>
+
+  <div ng-repeat="(post_index, post) in posts">
+
+    <p><b><a href="{{post.link}}">{{post.title}}</a></b></p>
+
+    <p>Created at {{post.created_at}}</p>
+
+    <form ng-submit="addComment(post_index)"
+          style="margin-left: 30px;">
+      <h3>Comment</h3>
+
+      <div class="form-group">
+        <input type="hidden" ng-model="post_id" value="{{post.id}}" />
+        <input type="text"
+               class="form-control"
+               placeholder="Body"
+               ng-model="new_comments[post_index].body"></input>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+
+    <table>
+
+      <tr ng-repeat="c in post.comments">
+        <td>upvotes: {{ c.upvotes }}. {{ c.body }} </td>
+      </tr>
+    </table>
+
+    <!--
+    <div ng-repeat="comment in comments | orderBy:'-upvotes'">
+      <span class="glyphicon glyphicon-thumbs-up"
+            ng-click="incrementUpvotes(comment)"></span>
+      {{comment.upvotes}} - by {{comment.author}}
+      <span style="font-size:20px; margin-left:10px;">
+        {{comment.body}}
+      </span>
+    </div>
+
+    <form ng-submit="addComment()"
+          style="margin-top:30px;">
+      <h3>Add a new comment</h3>
+
+      <div class="form-group">
+        <input type="text"
+               class="form-control"
+               placeholder="Comment"
+               ng-model="body"></input>
+      </div>
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+    -->
+
+  </div>
+
+
+
+</script>
